@@ -1,5 +1,11 @@
 # Work checkpoint
 
+## 2026-09-24 — README logo
+
+- Status: complete. Added `assets/logo.svg`, a self-contained mobile checklist mark, and its descriptive image reference under the `README.md` heading. Existing skill routes and content were unchanged.
+- Verification: rendered the 144×144 SVG and inspected the visible phone/checklist; a JavaScript discovery smoke resolved the logo, all 26 unique skill routes, and 64 relative references. No application/device build was needed for this documentation asset.
+- Changed files: `assets/logo.svg`, `README.md`, `CHANGELOG.md`, and this checkpoint. User-owned untracked files were not touched. Blockers: none; next action: none.
+
 ## 2026-09-24 — top-level platform skill folders
 
 - Status: complete. Preserved the user's relocation of eight unchanged platform skills from `skills/platform/{android,ios,flutter,kmp}/` to `skills/{android,ios,flutter,kmp}/`. Kept 18 universal skills under `skills/universal/`, stable skill names, and the UX attribution/license.

@@ -2,6 +2,7 @@
 
 ## 2026-09-24
 
+- feat(readme): added an accessible SVG mobile-checklist logo to the repository landing page.
 - refactor(skills): moved platform-specific workflows to top-level platform folders and repaired catalog and cross-skill routes.
 - feat(skills): adapted Kappan's fold/flip and multiwindow device checks into a reusable cross-platform adaptive-window workflow.
 - feat(skills): added a measured Jetpack Compose recomposition-efficiency workflow for Android.
