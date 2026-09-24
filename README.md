@@ -37,6 +37,7 @@ Reusable, English-language workflows for mobile application development. Each fo
 ## Architecture and product experience
 
 - [KMP platform boundaries](skills/kmp-platform-boundaries/SKILL.md) — shared-domain interfaces and native adapters.
+- [Mobile UX improvement](skills/mobile-ux-improvement/SKILL.md) — prioritize task friction, make focused changes, and verify truthful feedback and restrained motion.
 - [Mobile UI/UX verification](skills/mobile-ui-ux-verification/SKILL.md) — adaptive screens, truthful states, accessibility, and real-surface checks.
 - [Mobile gesture interactions](skills/mobile-gesture-interactions/SKILL.md) — tap/drag/pinch/scroll precedence and accessible alternatives.
 - [Mobile localization](skills/mobile-localization/SKILL.md) — language preference, resources, formatting, and store metadata.

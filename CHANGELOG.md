@@ -2,6 +2,7 @@
 
 ## 2026-09-24
 
+- feat(skills): adapted Emil Kowalski's MIT-licensed design engineering methods into a portable mobile UX improvement workflow with source attribution.
 - feat(skills): extracted local-first event synchronization, shared cloud access, and Flutter build workflows from the finance app.
 - feat(skills): added Kotlin Multiplatform boundaries, mobile UI/UX and gesture, and multilingual localization workflows from cross-platform projects.
 - fix(skills): removed project identifiers, fixed release assumptions, and source-specific tuning from reusable skill instructions.

@@ -1,5 +1,12 @@
 # Work checkpoint
 
+## 2026-09-24 — mobile UX improvement skill
+
+- Status: complete. Added `skills/mobile-ux-improvement/SKILL.md` as a focused diagnose/change/compare workflow for mobile task friction, truthful feedback, and restrained motion; catalog now lists 22 skills.
+- Source and license: adapted the MIT-licensed methods in `emilkowalski/skills` for existing native/Kotlin Multiplatform and Flutter workflows, without copying web/Expo-specific recipes. Preserved upstream copyright and full MIT notice in `skills/mobile-ux-improvement/UPSTREAM_LICENSE`; upstream was accessed read only.
+- Verification: JavaScript discovery smoke resolved all 47 relative skill/catalog links, matched 22 skill folders to names and catalog entries, routed an existing-mobile-task improvement request to the new skill, checked an offline-save and high-frequency interaction scenario, and found attribution and license notice. This documentation-only change was not tested on a running app; actual UX gains must be checked when applying the skill.
+- Changed files: `README.md`, `CHANGELOG.md`, this checkpoint, and the two new files in `skills/mobile-ux-improvement/`. Blockers: none; next action: none.
+
 ## 2026-09-24 — portable skill expansion and policy cleanup
 
 - Status: complete. Added `flutter-mobile-build`, `local-first-event-sync`, `shared-cloud-access`, `kmp-platform-boundaries`, `mobile-ui-ux-verification`, `mobile-gesture-interactions`, and `mobile-localization`; indexed 21 skills.
