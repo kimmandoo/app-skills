@@ -1,11 +1,18 @@
 # Work checkpoint
 
+## 2026-09-24 — categorized routing and store submission
+
+- Status: complete. Moved the 22 existing skills into `skills/{build,release,data,camera,experience,architecture}/<skill>/`, preserved their frontmatter names and the upstream MIT notice, and replaced the duplicated catalog/routes with 24 single-entry task routes in `README.md`.
+- Added distinct `google-play-submission` and `app-store-submission` skills under `skills/release/` for Console upload/submission, review-status decisions, rejection/resubmission, and publication checks. Build verification, preflight, store copy, and ATT remain separate linked workflows. Based on official Google Play Console Help and Apple App Store Connect Help read without changing source apps.
+- Verification: recursive JavaScript discovery checked 24 unique English-frontmatter skills, six categories, one catalog route per skill, 56 resolved relative links, representative Google Play/App Store review-status routes, and preserved license notice. A targeted search found no remaining references to the former flat skill paths. No store Console or app/device was accessed; these documentation workflows were not used to publish an app.
+- Changed files: 22 relocated skill files, the relocated `UPSTREAM_LICENSE`, cross-category references in four existing skills, two new store skills, `README.md`, `CHANGELOG.md`, and this checkpoint. User-owned untracked files were not touched. Blockers: none; next action: none.
+
 ## 2026-09-24 — mobile UX improvement skill
 
-- Status: complete. Added `skills/mobile-ux-improvement/SKILL.md` as a focused diagnose/change/compare workflow for mobile task friction, truthful feedback, and restrained motion; catalog now lists 22 skills.
-- Source and license: adapted the MIT-licensed methods in `emilkowalski/skills` for existing native/Kotlin Multiplatform and Flutter workflows, without copying web/Expo-specific recipes. Preserved upstream copyright and full MIT notice in `skills/mobile-ux-improvement/UPSTREAM_LICENSE`; upstream was accessed read only.
+- Status: complete. Added `skills/experience/mobile-ux-improvement/SKILL.md` as a focused diagnose/change/compare workflow for mobile task friction, truthful feedback, and restrained motion; catalog listed 22 skills at that checkpoint.
+- Source and license: adapted the MIT-licensed methods in `emilkowalski/skills` for existing native/Kotlin Multiplatform and Flutter workflows, without copying web/Expo-specific recipes. Preserved upstream copyright and full MIT notice, now at `skills/experience/mobile-ux-improvement/UPSTREAM_LICENSE`; upstream was accessed read only.
 - Verification: JavaScript discovery smoke resolved all 47 relative skill/catalog links, matched 22 skill folders to names and catalog entries, routed an existing-mobile-task improvement request to the new skill, checked an offline-save and high-frequency interaction scenario, and found attribution and license notice. This documentation-only change was not tested on a running app; actual UX gains must be checked when applying the skill.
-- Changed files: `README.md`, `CHANGELOG.md`, this checkpoint, and the two new files in `skills/mobile-ux-improvement/`. Blockers: none; next action: none.
+- Changed files: `README.md`, `CHANGELOG.md`, this checkpoint, and two files now under `skills/experience/mobile-ux-improvement/`. Blockers: none; next action: none.
 
 ## 2026-09-24 — portable skill expansion and policy cleanup
 

@@ -20,7 +20,7 @@ description: Build and verify an Android debug APK or a signed release APK/AAB; 
 ## Release
 
 1. Check the release variant's signing configuration and version source. If production signing is unavailable, stop rather than label an unsigned artifact distributable. Use a repository release script only when one is documented and maintained there.
-2. Build the project's APK and/or AAB using its actual tasks or script. Locate the outputs, verify Gradle signing tasks, and inspect metadata and certificates as described in [release-artifacts](../release-artifacts/SKILL.md).
+2. Build the project's APK and/or AAB using its actual tasks or script. Locate the outputs, verify Gradle signing tasks, and inspect metadata and certificates as described in [release-artifacts](../../release/release-artifacts/SKILL.md).
 3. Distinguish an installable signed APK from an uploadable signed AAB; passing `assembleRelease` alone proves neither store acceptance nor on-device behavior.
 
 ## Failure handling

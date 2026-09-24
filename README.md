@@ -1,44 +1,50 @@
 # App development skills
 
-Reusable, English-language workflows for mobile application development. Each folder contains a `SKILL.md` with a trigger description, prerequisites, execution steps, and checks. Read the consuming repository's build files, version policy, product contract, and signing configuration before applying a skill; no source project's paths, defaults, or release rules are assumed.
+Reusable, English-language mobile workflows. Skills live at `skills/<category>/<skill>/SKILL.md`; their frontmatter names did not change. Discover them recursively (`skills/*/*/SKILL.md`, or the equivalent in your loader), then pick the narrowest matching workflow below. Read the consuming app's actual build, product, version, and signing contracts; no source project's defaults are assumed.
 
-## Build and verification
+## Choose a starting skill
 
-- [Android build](skills/android-build/SKILL.md) — debug, instrumentation, lint, and signed release builds.
-- [iOS build](skills/ios-build/SKILL.md) — simulator/device builds and extension signing.
-- [Flutter mobile build](skills/flutter-mobile-build/SKILL.md) — debug checks and signed Android/iOS Flutter releases.
-- [Device verification](skills/device-verification/SKILL.md) — physical/simulated runtime checks and evidence.
+Match the task or failing stage to **one** entry below. For a store release, use version → preflight → signed artifacts → the **target store's** submission workflow; prepare store copy alongside the release and use ATT review only for tracking-specific iOS findings. A build, upload, review approval, and public availability are separate outcomes.
 
-## Store delivery
+## Build and device
 
-- [Version and release](skills/version-release/SKILL.md) — versions, upload numbers, and release records.
-- [Release preflight](skills/release-preflight/SKILL.md) — blockers before production builds.
-- [Release artifacts](skills/release-artifacts/SKILL.md) — signed APK/AAB/archive/IPA validation.
-- [Store submission content](skills/store-submission-content/SKILL.md) — localized, versioned store text and history.
-- [ATT review](skills/att-review/SKILL.md) — Apple tracking disclosure, consent ordering, and review evidence.
+- **Android Gradle, SDK, build, or signing:** [Android build](skills/build/android-build/SKILL.md).
+- **iOS Xcode, simulator/device build, or provisioning:** [iOS build](skills/build/ios-build/SKILL.md).
+- **Flutter build for Android or iOS:** [Flutter mobile build](skills/build/flutter-mobile-build/SKILL.md).
+- **App builds but changed behavior needs runtime proof:** [Device verification](skills/build/device-verification/SKILL.md).
 
-## Additional workflows
+## Release and store review
 
-- [Tiled face detection](skills/tiled-face-detection/SKILL.md) — high-resolution detection with coordinate restoration and duplicate merging.
-- [Face detector selection](skills/face-detector-selection/SKILL.md) — detector tradeoffs, coordinate contracts, and measured quality.
-- [Offline data integrity](skills/offline-data-integrity/SKILL.md) — safe import/share/persistence and restoration.
+- **User version or upload build numbers:** [Version and release](skills/release/version-release/SKILL.md).
+- **Release readiness before producing binaries:** [Release preflight](skills/release/release-preflight/SKILL.md).
+- **Signed APK/AAB/archive/IPA creation and inspection:** [Release artifacts](skills/release/release-artifacts/SKILL.md).
+- **Localized listing copy and submission history:** [Store submission content](skills/release/store-submission-content/SKILL.md).
+- **Play Console upload, review, rejection, or publishing:** [Google Play submission](skills/release/google-play-submission/SKILL.md).
+- **App Store Connect submission, App Review, or release:** [App Store submission](skills/release/app-store-submission/SKILL.md).
+- **iOS tracking-consent review issue specifically:** [ATT review](skills/release/att-review/SKILL.md).
 
-## Offline collaboration
+## Local data and collaboration
 
-- [Local-first event sync](skills/local-first-event-sync/SKILL.md) — event validation, idempotent retry, and conflict handling.
-- [Shared cloud access](skills/shared-cloud-access/SKILL.md) — role enforcement, safe cutover, and independent local copies.
+- **Offline document import, sharing, storage, or restoration:** [Offline data integrity](skills/data/offline-data-integrity/SKILL.md).
+- **Offline edits, event replay, retries, or conflicting versions:** [Local-first event sync](skills/data/local-first-event-sync/SKILL.md).
+- **Cloud membership, invitations, permissions, or local/cloud cutover:** [Shared cloud access](skills/data/shared-cloud-access/SKILL.md).
 
-## Camera workflows
+## Camera and vision
 
-- [Camera gesture session](skills/camera-gesture-session/SKILL.md) — asynchronous gesture/state policy and lifecycle-safe recording.
-- [Camera focus and orientation](skills/camera-focus-orientation/SKILL.md) — tap-to-focus convergence and single-pass image rotation/mirroring.
-- [Camera media output](skills/camera-media-output/SKILL.md) — consented capture, clear recording indication, and durable media-library save.
+- **Camera tap/hold gestures or asynchronous recording state:** [Camera gesture session](skills/camera/camera-gesture-session/SKILL.md).
+- **Tap-to-focus, metering, image rotation, or mirroring:** [Camera focus and orientation](skills/camera/camera-focus-orientation/SKILL.md).
+- **Photo/video capture finalization or media-library saving:** [Camera media output](skills/camera/camera-media-output/SKILL.md).
+- **Choose and benchmark an on-device face detector:** [Face detector selection](skills/camera/face-detector-selection/SKILL.md).
+- **Detect small faces in large images using overlapping crops:** [Tiled face detection](skills/camera/tiled-face-detection/SKILL.md).
 
-## Architecture and product experience
+## Product experience
 
-- [KMP platform boundaries](skills/kmp-platform-boundaries/SKILL.md) — shared-domain interfaces and native adapters.
-- [Mobile UX improvement](skills/mobile-ux-improvement/SKILL.md) — prioritize task friction, make focused changes, and verify truthful feedback and restrained motion.
-- [Mobile UI/UX verification](skills/mobile-ui-ux-verification/SKILL.md) — adaptive screens, truthful states, accessibility, and real-surface checks.
-- [Mobile gesture interactions](skills/mobile-gesture-interactions/SKILL.md) — tap/drag/pinch/scroll precedence and accessible alternatives.
-- [Mobile localization](skills/mobile-localization/SKILL.md) — language preference, resources, formatting, and store metadata.
+- **Improve friction in an existing user task:** [Mobile UX improvement](skills/experience/mobile-ux-improvement/SKILL.md).
+- **Audit screen states, accessibility, or adaptive layouts:** [Mobile UI/UX verification](skills/experience/mobile-ui-ux-verification/SKILL.md).
+- **Tap/drag/scroll/pinch actions collide:** [Mobile gesture interactions](skills/experience/mobile-gesture-interactions/SKILL.md).
+- **Translate in-app UI or change language preference:** [Mobile localization](skills/experience/mobile-localization/SKILL.md); use store submission content for store-only text.
+
+## Architecture
+
+- **Share domain logic across native Android and iOS:** [KMP platform boundaries](skills/architecture/kmp-platform-boundaries/SKILL.md).
 

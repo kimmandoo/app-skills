@@ -2,6 +2,8 @@
 
 ## 2026-09-24
 
+- feat(skills): added separate Google Play and App Store submission, review, rejection, and publishing workflows.
+- refactor(skills): grouped mobile workflows into six task categories and added intent-based routing with updated cross-skill links.
 - feat(skills): adapted Emil Kowalski's MIT-licensed design engineering methods into a portable mobile UX improvement workflow with source attribution.
 - feat(skills): extracted local-first event synchronization, shared cloud access, and Flutter build workflows from the finance app.
 - feat(skills): added Kotlin Multiplatform boundaries, mobile UI/UX and gesture, and multilingual localization workflows from cross-platform projects.

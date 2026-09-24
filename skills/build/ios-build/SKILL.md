@@ -37,4 +37,4 @@ xcodebuild -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \
 
 ## Failure handling
 
-Separate package resolution, Swift compilation, certificate/profile, entitlement, locked device, and app runtime errors. Report the exact stage reached; do not remove an extension or entitlement to turn a failed device build green. For store archives and exports, follow [release-artifacts](../release-artifacts/SKILL.md).
+Separate package resolution, Swift compilation, certificate/profile, entitlement, locked device, and app runtime errors. Report the exact stage reached; do not remove an extension or entitlement to turn a failed device build green. For store archives and exports, follow [release-artifacts](../../release/release-artifacts/SKILL.md).

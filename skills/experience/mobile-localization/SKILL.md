@@ -22,7 +22,7 @@ description: Implement or extend multilingual mobile UI in KMP, native Android/i
 
 - Keep app-owned screens, accessibility announcements, error messages, settings language names, and notifications in the app's localization pipeline. Audit launch, background, empty, error, settings, and permission-denied states, not only the happy path. Distinguish an app-authored permission explanation from the OS prompt itself.
 - Localize iOS `InfoPlist.strings` usage descriptions and other displayed bundle metadata for every shipped language needed by the platform; ensure the built bundle actually contains them. Android manifest/resource labels and platform-facing rationale or notification copy have their own resource path. Never imply that changing runtime app strings changes an already-presented system prompt.
-- Store titles, descriptions, screenshots, release notes, and privacy text live in store metadata, not the binary's in-app catalog. Coordinate changed claims and listing locales with [store-submission-content](../store-submission-content/SKILL.md); compare final store copy to the shipped UI and actual behavior. Do not assume changing an in-app translation updates a store listing or vice versa.
+- Store titles, descriptions, screenshots, release notes, and privacy text live in store metadata, not the binary's in-app catalog. Coordinate changed claims and listing locales with [store-submission-content](../../release/store-submission-content/SKILL.md); compare final store copy to the shipped UI and actual behavior. Do not assume changing an in-app translation updates a store listing or vice versa.
 
 ## Format meaning, not fragments
 
