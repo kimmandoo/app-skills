@@ -1,19 +1,19 @@
 ---
 name: release-artifacts
-description: Produce and verify signed Android APK/AAB and iOS xcarchive/IPA with matching release metadata, checksums, and submission readiness.
+description: Produce and verify signed Android APK/AAB and/or iOS xcarchive/IPA for the intended platforms with correct release metadata, checksums, and submission readiness.
 ---
 
 # Release artifacts
 
 ## Before building
 
-Pass [release-preflight](../release-preflight/SKILL.md). Lock intended source commit, version/build numbers, app IDs, distribution identities, and export method. Use the consumer project's scripts if supplied; Blurrf has `scripts/build-android-release.sh` and `scripts/prepare-ios-archive-dsyms.sh`, while Kappan does not have production Android signing configured. Keep output in ignored build storage, never in Git.
+Pass [release-preflight](../release-preflight/SKILL.md). Lock intended source commit, version/build numbers, app IDs, distribution identities, and export method. Use only the consuming project's configured build scripts and signing settings. Keep output in ignored build storage, never in Git.
 
 ## Android
 
-1. Build the intended release APK and AAB with the project's signed release tasks/scripts. Confirm exit status, actual artifact paths, and `validateSigningRelease`, bundle signing, and package tasks where applicable.
-2. Inspect Android Gradle Plugin `output-metadata.json` and the merged release manifest for application ID, version name, and build number. Verify APK certificates using the SDK's `apksigner verify --print-certs '<APK>'`.
-3. Verify the AAB signature with an appropriate JAR signature verifier (`jarsigner -verify -verbose -certs '<AAB>'`); the Gradle signing task succeeding alone is not an independent signature check. Only Play Console can establish final Play acceptance.
+1. Build the intended signed Android release deliverables (APK, AAB, or both) with the project's configured tasks/scripts. Confirm exit status, actual artifact paths, and relevant signing/package tasks.
+2. Inspect Android Gradle Plugin output metadata and the merged release manifest for application ID, version name, and build number. For an APK, verify certificates using the SDK's `apksigner verify --print-certs '<APK>'`.
+3. For an AAB, verify its signature independently with an appropriate JAR signature verifier (`jarsigner -verify -verbose -certs '<AAB>'`). Only Play Console can establish final Play acceptance.
 
 ## iOS
 
@@ -31,4 +31,4 @@ xcodebuild archive -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \
 
 ## Handoff
 
-Check Android/iOS identifiers and version/build mapping against the release record. Calculate SHA-256 for each deliverable, store artifact path/size/hash/source commit/signature result in a release manifest, and verify checksums against the final files. Do not report unsigned, debug-signed, or export-failed files as production releases; record store validation separately from local verification.
+Check identifiers and version/build mapping for every platform being released against its release record. Calculate SHA-256 for each deliverable, store artifact path/size/hash/source commit/signature result in a release manifest, and verify checksums against the final files. Do not report unsigned, debug-signed, or export-failed files as production releases; record store validation separately from local verification.

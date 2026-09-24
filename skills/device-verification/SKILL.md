@@ -7,7 +7,7 @@ description: Prove changed Android or iOS behavior on an installed app, rather t
 
 ## Setup
 
-Identify the changed screen/gesture, original bug reproduction, required permissions, and expected visible result. Use a test account and non-sensitive fixture files. Preserve existing emulator and user data; do not wipe a device just to simplify testing. Record the exact build, device/OS, and whether it is physical or simulated.
+Identify the changed screen/gesture, original bug reproduction, required permissions, and expected visible result. Use disposable test data and a test account if applicable. Preserve existing emulator and user data; do not wipe a device just to simplify testing. Record the exact build, device/OS, and whether it is physical or simulated.
 
 ## Android
 
@@ -45,7 +45,7 @@ Check signing and App Group entitlements for share extensions before interpretin
 
 1. Navigate to the affected surface and perform the real gesture/button/file/permission sequence. Inspect loading, success, error, cancellation, and retry states that matter to the change.
 2. For a bug, repeat its known failure scenario after the fix; do not rerun an already user-confirmed failure merely to dispute it.
-3. For persistence or import/export, use fixture files, close and relaunch the app, verify restored content and position, and confirm cancellation or duplicate input does not publish partial data. On iOS, test termination immediately after an update; scene snapshots need not match the most recently persisted selection. Where multiwindow is supported, restore each scene independently.
+3. For a feature that imports, exports, or persists data, use fixtures, close and relaunch the app, and verify the relevant content and state. Confirm cancellation or duplicate input does not publish partial data. On iOS apps with scene restoration, test termination immediately after an update; scene snapshots need not match the most recently persisted selection. Where multiwindow is supported, restore each scene independently.
 4. Keep screenshots/logs as evidence with device, OS, build, and the exact steps exercised. Report launch-only, simulator-only, or build-only checks as such; never claim physical-device validation without a physical device.
 
 Separate device lock, permission prompts, missing profiles, and missing simulator runtimes from application behavior.

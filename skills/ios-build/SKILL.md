@@ -25,7 +25,7 @@ For targets with App Groups or share extensions, preserve the signing/entitlemen
 
 1. Check `xcrun devicectl list devices` and `security find-identity -v -p codesigning`. Confirm the selected device, configured Team, and the app/extension App IDs.
 2. If an App Group is used, register it with the developer account, attach it to **both** app and extension IDs, and ensure **both** profiles include the entitlement. `-allowProvisioningUpdates` does not register a missing group by itself.
-3. Use the repository's signed device build script (Blurrf has `scripts/build-ios-debug.sh`/`build-ios-release.sh`), or adapt:
+3. Use the repository's signed device build script if available, or adapt:
 
 ```sh
 xcodebuild -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \

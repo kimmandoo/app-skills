@@ -7,14 +7,14 @@ description: Check release scope, versions, store copy, privacy, signing, and as
 
 ## Inputs
 
-Intended user version and platform build numbers; source commit; target Play track and App Store version; release scope; available signing/configuration. Read the project's version policy, release record, store listings, privacy declarations, and prior blockers. Distinguish unrelated working-tree changes from files owned by this release.
+Intended user version and build numbers for each target platform; source commit; target store version/track, release scope, and available signing/configuration. Read the project's version policy, release record, store listings, privacy declarations, and prior blockers. Distinguish unrelated working-tree changes from files owned by this release.
 
 ## Gate
 
-1. Confirm intended patch/minor/major classification and that every upload build number increases relative to the last uploaded build on its store. Compare Android/iOS version names and their intended build-number mapping.
-2. Match changelog and release scope against implemented, device-observable functionality. Prepare **separate** App Store and Google Play copy for the version via [store-submission-content](../store-submission-content/SKILL.md); compare locale claims, final build identifiers, and actual behavior.
-3. Review listing changes, screenshots/icons (size, alpha, locale), age rating, account/payment disclosures, support/privacy-policy URLs, permissions, App Privacy, and Data safety against the actual app and SDK behavior. When advertising/tracking is involved, use [att-review](../att-review/SKILL.md) for the iOS privacy gate.
-4. Verify that production signing identities, provisioning, keystore, and any required production ads/configuration are available through approved channels. Check presence and suitability, not secret contents in logs or documents.
+1. Confirm the intended version classification under the project's own policy and that every upload build number increases relative to the last uploaded build on its store. For cross-platform releases, record the intended Android/iOS version and build-number mapping.
+2. Match changelog and release scope against implemented, device-observable functionality. Prepare separate App Store and Google Play copy **only for the stores being targeted** via [store-submission-content](../store-submission-content/SKILL.md); compare locale claims, final build identifiers, and actual behavior.
+3. Review listing changes, screenshots/icons (size, alpha, locale), age rating, account/payment disclosures, support/privacy-policy URLs, permissions, store privacy answers, and Data safety where applicable against the actual app and SDK behavior. When iOS tracking is involved, use [att-review](../att-review/SKILL.md) for the privacy gate.
+4. Verify required production signing identities, provisioning, keystore, and any production service/configuration used by the app are available through approved channels. Check presence and suitability, not secret contents in logs or documents.
 5. Identify external console dependencies (consent messages, compliance declarations, store review data); distinguish a code/build pass from store-console completion.
 
 ## Stop and record

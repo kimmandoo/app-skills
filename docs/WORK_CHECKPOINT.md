@@ -1,5 +1,14 @@
 # Work checkpoint
 
+## 2026-09-24 — portable skill expansion and policy cleanup
+
+- Status: complete. Added `flutter-mobile-build`, `local-first-event-sync`, `shared-cloud-access`, `kmp-platform-boundaries`, `mobile-ui-ux-verification`, `mobile-gesture-interactions`, and `mobile-localization`; indexed 21 skills.
+- Portability: removed source project names, repository-specific paths, version/tag conventions, fixed detector tuning, and dual-store assumptions from the skill bodies/catalog. Kept domain-specific technical APIs conditional on the consumer's actual architecture.
+- Camera policy: removed instructions to capture without a visible interface or evade capture sounds; documented explicit consent, visual and/or audible indication, device-enforced cues, and platform policy checks. The source camera app was not edited.
+- Sources: `../gguldong` had seven pre-existing modified files. Its Git status and SHA-256 hashes for those files were identical after extraction. `../gengar` remained clean; other referenced projects were read only.
+- Verification: JavaScript smoke checked 21 English frontmatter/catalog entries, 43 relative links, all code fences, banned source identifiers, the camera-consent route, optional checksum semantics, and localization fallback. No project builds were run for documentation-only changes.
+- Changed files: `README.md`, `CHANGELOG.md`, this checkpoint, edited prior `skills/*/SKILL.md` files, and seven new skill folders. Blockers: none; next action: none.
+
 ## 2026-09-24 — Gengar extraction
 
 - Status: complete. Added `camera-gesture-session`, `camera-focus-orientation`, and `camera-media-output`; indexed all fourteen skills in `README.md`.
