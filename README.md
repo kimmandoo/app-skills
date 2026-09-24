@@ -1,6 +1,6 @@
 # App development skills
 
-<img src="assets/logo.png" alt="App Skills logo: a sleepy bun mascot in a dark hoodie holding a green mug" width="160" height="160">
+<img src="assets/logo.png" alt="App Skills logo: a sleepy bun mascot in a dark hoodie holding a smartphone" width="160" height="160">
 
 Reusable English-language mobile workflows. `skills/universal/` holds stack-neutral task contracts (use only when that domain applies); `skills/{android,ios,flutter,kmp}/` holds platform-specific instructions. Each leaf has a stable frontmatter name and a `SKILL.md`; discover recursively with `skills/**/SKILL.md` or an equivalent loader. Select one starting skill by the task below, then follow its links when another domain is involved. Always inspect the consuming app's actual contracts and tooling.
 

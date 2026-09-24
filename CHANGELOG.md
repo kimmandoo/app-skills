@@ -2,6 +2,7 @@
 
 ## 2026-09-24
 
+- feat(readme): replaced the avatar's green mug with a smartphone held in the original hand.
 - feat(readme): replaced the checklist illustration with a transparent cutout of the maintainer's GitHub avatar.
 - feat(readme): added an accessible SVG mobile-checklist logo to the repository landing page.
 - refactor(skills): moved platform-specific workflows to top-level platform folders and repaired catalog and cross-skill routes.

@@ -1,5 +1,11 @@
 # Work checkpoint
 
+## 2026-09-24 — smartphone in avatar hand
+
+- Status: complete. Replaced the green mug in `assets/logo.png` with a smartphone, retained the avatar's face, hoodie, and original hand over the phone edge, and removed leftover mug/steam pixels. Updated the README alt text to describe the phone; its local image path and display size are unchanged.
+- Verification: visually inspected the transparent PNG and a 160×160 README-size render. The source and replacement face pixel match, all four corners remain transparent, and 7,764 mug-green pixels in the held-object region became zero. JavaScript resolved 26 skill routes and all 64 local references, including the README image. No application/device run was needed.
+- Changed files: `assets/logo.png`, `README.md`, `CHANGELOG.md`, and this checkpoint. User-owned untracked files were left alone. Blockers: none; next action: none.
+
 ## 2026-09-24 — transparent avatar logo
 
 - Status: complete. Removed the background from the user's supplied [GitHub avatar](https://avatars.githubusercontent.com/u/46841652?v=4) without redrawing its character. Replaced `assets/logo.svg` with a self-contained 460×460 transparent `assets/logo.png`; the README displays it at 160×160 with descriptive alt text and no runtime request to GitHub.
