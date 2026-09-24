@@ -1,5 +1,12 @@
 # Work checkpoint
 
+## 2026-09-24 — top-level platform skill folders
+
+- Status: complete. Preserved the user's relocation of eight unchanged platform skills from `skills/platform/{android,ios,flutter,kmp}/` to `skills/{android,ios,flutter,kmp}/`. Kept 18 universal skills under `skills/universal/`, stable skill names, and the UX attribution/license.
+- Updated the eight platform catalog routes, fifteen platform-skill links to universal workflows, and the universal release-preflight link to iOS ATT. Prior checkpoint sections describe the historical layouts at those checkpoints, not current discovery paths.
+- Verification: JavaScript recursive discovery found 26 unique one-to-one frontmatter/catalog routes (18 universal, Android 3, iOS 3, Flutter 1, KMP 1), with all 63 relative links resolved. Before repair, the user's move exposed 24 broken links. Git blob hashes confirmed the eight relocations initially preserved file content; no consuming app or device was run for this documentation-only path change.
+- Changed files: eight relocated platform skill files, `skills/universal/release/release-preflight/SKILL.md`, `README.md`, `CHANGELOG.md`, and this checkpoint. User-owned untracked files were left alone. Blockers: none; next action: none.
+
 ## 2026-09-24 — universal/platform routing, Compose efficiency, adaptive devices, history naming
 
 - Status: complete. Split 26 recursively discoverable skills into `skills/universal/` (18) and `skills/platform/` (8); retained stable frontmatter names and moved the MIT notice with the UX skill. Generalized reusable camera, data, localization, device-verification, and experience instructions without removing domain safeguards.

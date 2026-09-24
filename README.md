@@ -1,6 +1,6 @@
 # App development skills
 
-Reusable English-language mobile workflows. `skills/universal/` holds stack-neutral task contracts (use only when that domain applies); `skills/platform/` holds Android, iOS, Flutter, and Kotlin Multiplatform instructions. Each leaf has a stable frontmatter name and a `SKILL.md`; discover recursively with `skills/**/SKILL.md` or an equivalent loader. Select one starting skill by the task below, then follow its links when another domain is involved. Always inspect the consuming app's actual contracts and tooling.
+Reusable English-language mobile workflows. `skills/universal/` holds stack-neutral task contracts (use only when that domain applies); `skills/{android,ios,flutter,kmp}/` holds platform-specific instructions. Each leaf has a stable frontmatter name and a `SKILL.md`; discover recursively with `skills/**/SKILL.md` or an equivalent loader. Select one starting skill by the task below, then follow its links when another domain is involved. Always inspect the consuming app's actual contracts and tooling.
 
 ## Route by task
 
@@ -45,21 +45,21 @@ Use a **platform** skill when the problem depends on its compiler, UI toolkit, b
 
 ### Android and Google Play
 
-- **Android Gradle, SDK, build, or signing:** [Android build](skills/platform/android/android-build/SKILL.md).
-- **Expensive or unnecessary Jetpack Compose recomposition:** [Compose recomposition](skills/platform/android/compose-recomposition/SKILL.md).
-- **Play Console upload, review, rejection, or publication:** [Google Play submission](skills/platform/android/google-play-submission/SKILL.md).
+- **Android Gradle, SDK, build, or signing:** [Android build](skills/android/android-build/SKILL.md).
+- **Expensive or unnecessary Jetpack Compose recomposition:** [Compose recomposition](skills/android/compose-recomposition/SKILL.md).
+- **Play Console upload, review, rejection, or publication:** [Google Play submission](skills/android/google-play-submission/SKILL.md).
 
 ### iOS and App Store
 
-- **iOS Xcode, simulator/device build, or provisioning:** [iOS build](skills/platform/ios/ios-build/SKILL.md).
-- **App Store Connect submission, App Review, or release:** [App Store submission](skills/platform/ios/app-store-submission/SKILL.md).
-- **iOS tracking-consent review finding:** [ATT review](skills/platform/ios/att-review/SKILL.md).
+- **iOS Xcode, simulator/device build, or provisioning:** [iOS build](skills/ios/ios-build/SKILL.md).
+- **App Store Connect submission, App Review, or release:** [App Store submission](skills/ios/app-store-submission/SKILL.md).
+- **iOS tracking-consent review finding:** [ATT review](skills/ios/att-review/SKILL.md).
 
 ### Flutter
 
-- **Flutter Android/iOS build and signing:** [Flutter mobile build](skills/platform/flutter/flutter-mobile-build/SKILL.md).
+- **Flutter Android/iOS build and signing:** [Flutter mobile build](skills/flutter/flutter-mobile-build/SKILL.md).
 
 ### Kotlin Multiplatform
 
-- **Shared Kotlin domain versus native Android/iOS boundaries:** [KMP platform boundaries](skills/platform/kmp/kmp-platform-boundaries/SKILL.md).
+- **Shared Kotlin domain versus native Android/iOS boundaries:** [KMP platform boundaries](skills/kmp/kmp-platform-boundaries/SKILL.md).
 

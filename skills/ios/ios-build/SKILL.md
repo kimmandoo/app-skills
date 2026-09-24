@@ -33,8 +33,8 @@ xcodebuild -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \
   -derivedDataPath '<DERIVED_DATA>' -allowProvisioningUpdates build
 ```
 
-4. Verify signing of the app and embedded extensions and check the device `.app` output under `Build/Products/Debug-iphoneos/`. Install, launch, and exercise the changed behavior with [device-verification](../../../universal/build/device-verification/SKILL.md). A simulator build, unsigned device build, or compile-only result is not a signed device build.
+4. Verify signing of the app and embedded extensions and check the device `.app` output under `Build/Products/Debug-iphoneos/`. Install, launch, and exercise the changed behavior with [device-verification](../../universal/build/device-verification/SKILL.md). A simulator build, unsigned device build, or compile-only result is not a signed device build.
 
 ## Failure handling
 
-Separate package resolution, Swift compilation, certificate/profile, entitlement, locked device, and app runtime errors. Report the exact stage reached; do not remove an extension or entitlement to turn a failed device build green. For store archives and exports, follow [release-artifacts](../../../universal/release/release-artifacts/SKILL.md).
+Separate package resolution, Swift compilation, certificate/profile, entitlement, locked device, and app runtime errors. Report the exact stage reached; do not remove an extension or entitlement to turn a failed device build green. For store archives and exports, follow [release-artifacts](../../universal/release/release-artifacts/SKILL.md).

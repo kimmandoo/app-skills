@@ -2,6 +2,7 @@
 
 ## 2026-09-24
 
+- refactor(skills): moved platform-specific workflows to top-level platform folders and repaired catalog and cross-skill routes.
 - feat(skills): adapted Kappan's fold/flip and multiwindow device checks into a reusable cross-platform adaptive-window workflow.
 - feat(skills): added a measured Jetpack Compose recomposition-efficiency workflow for Android.
 - refactor(skills): separated universal workflows from Android, iOS, Flutter, and Kotlin Multiplatform skills and generalized shared guidance.

@@ -7,7 +7,7 @@ description: Submit Google Play testing and production releases in Play Console,
 
 ## Handoff and scope
 
-Start with [release-preflight](../../../universal/release/release-preflight/SKILL.md) for version, privacy, and policy readiness; [release-artifacts](../../../universal/release/release-artifacts/SKILL.md) for the signed AAB and its identifiers; and [store-submission-content](../../../universal/release/store-submission-content/SKILL.md) for truthful localized release notes, listing assets, and the submission record. This skill covers **Play Console actions and observed states**, not building/signing a bundle or inventing store copy. Obtain authorized Console access, the intended app/package, artifact/versionCode, target track, countries/regions, and release owner. Never claim an upload, review, approval, or launch without corresponding Console evidence.
+Start with [release-preflight](../../universal/release/release-preflight/SKILL.md) for version, privacy, and policy readiness; [release-artifacts](../../universal/release/release-artifacts/SKILL.md) for the signed AAB and its identifiers; and [store-submission-content](../../universal/release/store-submission-content/SKILL.md) for truthful localized release notes, listing assets, and the submission record. This skill covers **Play Console actions and observed states**, not building/signing a bundle or inventing store copy. Obtain authorized Console access, the intended app/package, artifact/versionCode, target track, countries/regions, and release owner. Never claim an upload, review, approval, or launch without corresponding Console evidence.
 
 ## Select the route and complete Console setup
 
