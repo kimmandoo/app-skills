@@ -1,5 +1,11 @@
 # Work checkpoint
 
+## 2026-09-24 — transparent avatar logo
+
+- Status: complete. Removed the background from the user's supplied [GitHub avatar](https://avatars.githubusercontent.com/u/46841652?v=4) without redrawing its character. Replaced `assets/logo.svg` with a self-contained 460×460 transparent `assets/logo.png`; the README displays it at 160×160 with descriptive alt text and no runtime request to GitHub.
+- Verification: inspected the original and the PNG over a checkerboard and at README size; all four corner alpha values are 0 and an opaque face pixel matches the source RGB exactly. JavaScript resolved the README image, 26 unique skill routes, and 64 relative references. No application/device run was needed.
+- Changed files: added `assets/logo.png`, removed `assets/logo.svg`, updated `README.md`, `CHANGELOG.md`, and this checkpoint. User-owned untracked files were not touched. Blockers: none; next action: none.
+
 ## 2026-09-24 — README logo
 
 - Status: complete. Added `assets/logo.svg`, a self-contained mobile checklist mark, and its descriptive image reference under the `README.md` heading. Existing skill routes and content were unchanged.
