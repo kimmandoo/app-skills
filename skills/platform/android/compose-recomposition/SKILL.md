@@ -1,0 +1,25 @@
+---
+name: compose-recomposition
+description: Diagnose and reduce costly Jetpack Compose recomposition on Android using measured UI traces, state-read boundaries, honest stability contracts, and before/after device evidence.
+---
+
+# Improve Jetpack Compose recomposition
+
+Use this for an **Android Jetpack Compose UI** with a specific slow or unnecessarily recomposing interaction. It is not a generic Kotlin Multiplatform optimization recipe. A recomposition is often correct and cheap; optimize the work users can actually feel without making state updates disappear.
+
+## Establish a reproducible baseline
+
+1. Select one interaction (for example, scrolling a list, changing a filter, or dragging a control) and record the build, device, data set, and visible result. Use Android Studio Layout Inspector on a debuggable build to observe **recomposition and skip counts** for the affected composables while repeating that interaction. Counts show where to investigate, not how expensive the work is. Measure frame timing/jank for the same scenario on a comparable profileable or release build with the project's profiling/benchmark tools; do not equate debug-mode counts with release performance.
+2. Locate the state reads that invalidate the affected composition scopes and distinguish composition, layout, and draw work. Generate Compose compiler reports for the module using its actual Compose Compiler plugin/configuration when stability is in question; inspect the `composables`/`classes` reports for `restartable`, `skippable`, and unstable parameters. First confirm the compiler/Kotlin versions and whether **Strong Skipping** is already enabled (on by default with Kotlin 2.0.20+). Never toggle build-wide compiler options or add a dependency solely because a count looks high.
+
+## Make the smallest correct change
+
+3. If the body repeatedly sorts, parses, or builds expensive data, move the work to an appropriate data layer or use `remember(inputKeys)` for an immutable, correctly keyed result. A mutable collection reused under the same key will not invalidate a cached computation reliably; fix its state ownership rather than hiding the symptom with `remember`. Give lazy-list items **unique stable keys** when inserts/reorders change item positions; verify preserved item state and ordering, not merely fewer row invocations.
+4. If a high-frequency snapshot state changes but the UI depends only on a coarse condition (such as whether the first item is visible), use `remember { derivedStateOf { ... } }` at the consumer when it actually reduces updates. For state that only affects position or pixels, defer the read into a lambda modifier such as `Modifier.offset { ... }` (layout) or `Modifier.drawBehind { ... }` / `graphicsLayer { ... }` (drawing). Read at the lowest correct phase: moving a read out of composition does **not** make layout or drawing free, and a value that changes actual content must still invalidate composition. Do not write to previously read snapshot state during composition; update state from events or an appropriate effect to avoid recomposition loops.
+5. When unstable parameters are implicated, prefer truthful immutable UI values or Compose-observable mutable state. Kotlin `List`/`Set`/`Map` interfaces alone do not prove their contents immutable; evaluate an immutable collection or UI-specific projection only if measured. With Strong Skipping, restartable functions with unstable parameters may skip when the **same object instance** is passed, while stable parameters use value equality. In-place mutation of unobserved fields can therefore leave stale UI. Treat `@Stable`, `@Immutable`, and compiler stability configuration as contracts to prove, never blanket performance flags. Check model boundaries from other modules separately, and preserve semantic updates before changing equality/identity behavior.
+
+## Prove performance and correctness together
+
+6. Replay the identical interaction and data after the change. Compare the affected scope's recomposition/skip pattern **and** release/profileable frame metrics against the baseline. Exercise insert/reorder and changed item content, rapid state updates, cancellation, back/restore, and any dynamic text or accessibility updates touched by the edit; verify the UI still changes when it must. Stop or revert if frames do not improve or an observable update is skipped. Report observed device/build/tool, before/after values, and any untested condition. For full installed-app evidence, follow [device-verification](../../../universal/build/device-verification/SKILL.md).
+
+References: [Diagnose stability](https://developer.android.com/develop/ui/compose/performance/stability/diagnose), [Strong Skipping](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping), [Fix stability issues](https://developer.android.com/develop/ui/compose/performance/stability/fix), [Compose performance practices](https://developer.android.com/develop/ui/compose/performance/bestpractices), and [rendering phases](https://developer.android.com/develop/ui/compose/phases).

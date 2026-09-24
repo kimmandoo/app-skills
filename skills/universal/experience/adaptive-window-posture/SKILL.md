@@ -1,0 +1,34 @@
+---
+name: adaptive-window-posture
+description: Verify real app behavior across Android fold/flip postures and split-screen, and supported iPad multiwindow or resized scenes, without confusing viewport changes with hinge evidence.
+---
+
+# Verify adaptive windows and foldable postures
+
+Use this when a supported mobile app must keep its current task usable across window resizing, Android fold/flip transitions, or multiple iPad windows. Start with the app's **actual window bounds**, not the device's full-screen pixel size. A resized rectangle alone cannot prove hinge avoidance or cover-screen behavior. Test only platforms and device features the app supports; iOS has no Android-equivalent fold posture API. For general screen-state/accessibility review, use [mobile-ui-ux-verification](../mobile-ui-ux-verification/SKILL.md); for installed-app evidence, use [device-verification](../../build/device-verification/SKILL.md).
+
+## Establish a safe scenario and state invariant
+
+1. Record the build, app version, OS, physical device or emulator/simulator, initial window dimensions, and available postures. Use a separate test account or disposable fixtures; do not reset an existing device, import into private data, or disturb another user's reading/editing position. Note whether the app actually supports a cover display and independently restorable windows/scenes.
+2. Pick one long or stateful primary task (for example, reading at a specific section, editing an unsaved form, or inspecting a selected item). Record its stable identity, position, in-progress edits, focus, and accessible actions. Capture its initial, loading/reflow, and settled states. If the task recomputes pagination, layout, or other derived geometry, show an honest pending state while retaining usable content and controls; do not persist transient zero-sized geometry or treat a stale estimate as final.
+3. Define a matrix of supported wide/compact windows, portrait/landscape, keyboard shown/hidden, and **actual** posture/window transitions. Include narrow horizontal and vertical bounds, safe insets, large text, and any supported second window. Verify the same task before, during, and after each transition rather than comparing screenshots from unrelated launches.
+
+## Exercise Android fold, flip, and split-screen when supported
+
+- Create or select a dedicated fold/flip AVD or authorized physical device. Enumerate devices and available states before changing them: `adb devices`, `adb -s '<SERIAL>' shell cmd device_state print-states`. Only when that command and the selected device support a state, use `adb -s '<SERIAL>' shell cmd device_state state '<STATE_ID>'`; derive IDs from the output, not another model's OPENED/HALF_OPENED/CLOSED values. Restore with `adb -s '<SERIAL>' shell cmd device_state state reset` if supported. Isolate emulator data (for example, a disposable or read-only AVD) rather than deleting a user's AVD. Record explicitly when a state or posture is unavailable.
+- Exercise expanded → partially folded → folded → expanded for supported states, including tabletop/horizontal hinge and portrait/landscape where offered. Use **window-relative** bounds and, if the app consumes an actual folding-feature API, inspect the hinge bounds, orientation, separation/occlusion, and updated layout. Text and essential controls must not fall under an occluding hinge, system bar, cutout, keyboard, or rounded corner; both panes must remain useful when a separating hinge exists. Do not claim posture validation from `wm size`, rotation, or a single fullscreen screenshot. A flip cover screen counts only if the device/OS supports launching this app there; otherwise report it untested.
+- Place the app beside another app with the system split-screen/multiwindow controls; resize the divider, type with the keyboard, exit split-screen, and return. Check reachable back/menu/primary actions and the exact selected item, scroll/anchor, pending edit, or navigation destination throughout. Do not infer two independent instances of the same app from side-by-side placement with another app. Capture before/transition/settled screenshots and input outcomes where possible.
+
+For each supported state, capture device evidence with `adb -s '<SERIAL>' exec-out screencap -p > '<OUTPUT_PNG>'` (choose the correct display when a device has several); compare before, during, and after the transition, not just the final layout.
+
+## Exercise iPad windows when supported
+
+For an isolated iPad simulator, enumerate actual available device types and runtimes with `xcrun simctl list devicetypes` and `xcrun simctl list runtimes`, then create a dedicated test device with `xcrun simctl create '<TEST_NAME>' '<IPAD_DEVICE_TYPE_ID>' '<IOS_RUNTIME_ID>'`. Boot that new device with `xcrun simctl boot '<NEW_UDID>'` and `xcrun simctl bootstatus '<NEW_UDID>' -b`; install and launch the consuming app using its own bundle ID and artifact as described in device verification. Capture its window with `xcrun simctl io '<NEW_UDID>' screenshot '<OUTPUT_PNG>'`. Shutdown/delete **only the simulator created for this test** when finished, never an existing user's simulator.
+
+- On the supported iPad OS, rotate and resize the app's actual window using system multitasking controls, including a compact width. Check safe areas, keyboard occlusion, scrolling, accessibility actions, and reflow against the current scene bounds. A simulator may demonstrate rotation and size changes; do not claim physical hinge behavior on iOS.
+- If the app and OS support multiple windows of the **same app**, open two scenes with distinct tasks/items and positions; resize, background/foreground, close, and relaunch each. Check that one scene's selection, focus, and draft do not overwrite the other's, and that shared committed data is reflected according to the app's actual contract. If the available simulator cannot provide the required independent-scene or Stage Manager behavior, leave that check explicitly for a supported physical iPad. Do not infer concurrent-scene correctness from single-window rotation or from two different apps.
+
+## Pass criteria and evidence
+
+- At each **tested** size and posture, key content and reachable primary controls remain visible or scrollable with platform-appropriate touch areas; the hinge, insets, and keyboard do not swallow actions. State survives transition and relaunch according to the app's persistence contract; loading/reflow does not block unrelated controls or silently reset task position. Concurrent scenes stay independent where supported.
+- Report app/build, device/OS, exact window size and actual device posture or scene configuration, transition sequence, before/after task state, screenshots/interactions, and unavailable hardware or unsupported features. Installation, a build, changed `wm size`, or a screenshot alone is not proof of real fold, flip, or multiwindow behavior.
