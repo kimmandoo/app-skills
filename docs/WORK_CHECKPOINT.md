@@ -1,5 +1,13 @@
 # Work checkpoint
 
+## 2026-09-24 — Gengar extraction
+
+- Status: complete. Added `camera-gesture-session`, `camera-focus-orientation`, and `camera-media-output`; indexed all fourteen skills in `README.md`.
+- Source repository: `../gengar` was read only. Git reported no tracked/untracked changes afterward; hashes of the consulted source files matched the initial inventory.
+- Verification: JavaScript discovery smoke checked fourteen named skills, catalog coverage, English text, balanced fences, 27 resolved internal links, and routing of gesture, focus, and save/finalization guidance. No camera hardware was available or needed to verify documentation-only changes.
+- Changed files: `README.md`, `CHANGELOG.md`, this checkpoint, and three new `skills/*/SKILL.md` files.
+- Blockers: none. Next action: none.
+
 ## 2026-09-24
 
 - Status: complete. Migrated eight source skill topics to `skills/<topic>/SKILL.md`; extracted three additional skills and indexed all eleven in `README.md`.
