@@ -14,8 +14,8 @@ Use only the target-platform sections below. Flutter, KMP, and native projects m
 ## Android
 
 1. Build the intended signed Android release deliverables (APK, AAB, or both) with the project's configured tasks/scripts. Confirm exit status, actual artifact paths, and relevant signing/package tasks.
-2. Inspect Android Gradle Plugin output metadata and the merged release manifest for application ID, version name, and build number. For an APK, verify certificates using the SDK's `apksigner verify --print-certs '<APK>'`.
-3. For an AAB, verify its signature independently with an appropriate JAR signature verifier (`jarsigner -verify -verbose -certs '<AAB>'`). Only Play Console can establish final Play acceptance.
+2. Inspect the final APK's packaged manifest and the AAB's base manifest using tools appropriate to each format (for example Android SDK `apkanalyzer` and `bundletool dump manifest`), not only Gradle output metadata or a merged intermediate manifest. Compare application ID, version name, and version code with the release handoff. For an APK, run the SDK's `apksigner verify --verbose --print-certs '<APK>'` and compare the actual signer certificate fingerprint with the expected distribution certificate and signing lineage.
+3. For an AAB, verify its signature independently with an appropriate JAR signature verifier (`jarsigner -verify -verbose -certs '<AAB>'`); inspect the result and compare the signer fingerprint to the expected upload certificate. Play App Signing may use a different app-signing certificate for APKs delivered to users. Only Play Console can establish final Play acceptance.
 
 ## iOS
 
@@ -27,9 +27,9 @@ xcodebuild archive -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \
   -archivePath '<ARCHIVE.xcarchive>' -derivedDataPath '<DERIVED_DATA>'
 ```
 
-2. Inspect archive `Info.plist` for bundle ID, `CFBundleShortVersionString`, `CFBundleVersion`, architecture, Team, and signing identity. If the project embeds third-party frameworks requiring separately prepared dSYMs, run its *documented* symbol-preparation script **after** archiving and verify each binary/dSYM UUID match before export; do not assume every vendor SDK has this requirement.
+2. Inspect the archive's app bundle `Products/Applications/<APP>.app/Info.plist` for bundle ID, `CFBundleShortVersionString`, and `CFBundleVersion`; inspect the actual executable architectures and app/extension signatures, entitlements, Team and profiles using the installed Apple tooling. The archive's top-level `Info.plist` is not a substitute for the bundled app's metadata. If the project embeds third-party frameworks requiring separately prepared dSYMs, run its *documented* symbol-preparation script **after** archiving and verify each binary/dSYM UUID match before export; do not assume every vendor SDK has this requirement.
 3. Export with a securely configured `ExportOptions.plist` for the intended store, using `xcodebuild -exportArchive -archivePath '<ARCHIVE.xcarchive>' -exportPath '<EXPORT_DIR>' -exportOptionsPlist '<OPTIONS.plist>'`. Where the project's version policy forbids automatic version rewriting, set `manageAppVersionAndBuildNumber=false`.
-4. Verify the IPA and `DistributionSummary.plist`: store profile, distribution certificate, Team, version/build, architectures, and `get-task-allow=false`. A successful archive does not imply successful export. For symbol upload, use the project's documented archive-upload path if IPA transport omits dSYMs.
+4. Verify the exported IPA itself, including its app and embedded extensions: inspect their bundled metadata, actual architectures, signatures, entitlements, embedded provisioning profiles, Team and distribution identity. Check `get-task-allow=false` where required for the intended distribution and compare with `DistributionSummary.plist`; a summary alone is not proof of the exported bytes. A successful archive does not imply successful export. For symbol upload, use the project's documented archive-upload path if IPA transport omits dSYMs.
 
 ## Handoff
 

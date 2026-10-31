@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지금 할 일 — app-skills</title>
+<meta name="description" content="app-skills 저장소의 현재 활성 작업과 남은 할 일 체크리스트 (docs/WORK_CHECKPOINT.md 기준).">
+<meta name="theme-color" content="#0a0d14">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<style>
+  :root{
+    --bg:#0a0d14;
+    --bg-soft:#0e121c;
+    --card:rgba(255,255,255,.035);
+    --card-hover:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.09);
+    --border-strong:rgba(255,255,255,.16);
+    --text:#e9edf5;
+    --muted:#98a2b6;
+    --faint:#6b7488;
+    --accent:#7c8cff;
+    --accent2:#56d8c9;
+    --warn:#f2c069;
+    --radius:16px;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(600px 420px at 12% -6%,rgba(124,140,255,.16),transparent 60%),
+      radial-gradient(560px 420px at 88% 4%,rgba(86,216,201,.10),transparent 60%),
+      radial-gradient(800px 600px at 50% 110%,rgba(124,140,255,.07),transparent 60%);
+    pointer-events:none;
+  }
+  ::selection{background:rgba(124,140,255,.35)}
+  a{color:inherit}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:rgba(10,13,20,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-in{display:flex;align-items:center;gap:12px;height:64px}
+  .nav-logo{width:30px;height:30px;border-radius:8px;display:block}
+  .nav-name{font-weight:700;letter-spacing:-.01em;text-decoration:none}
+  .nav-name span{color:var(--muted);font-weight:500}
+  .nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;
+    padding:8px 12px;border-radius:9px;transition:.15s;
+  }
+  .nav-links a:hover{color:var(--text);background:var(--card-hover)}
+  .btn-gh{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--border-strong)!important;
+    color:var(--text)!important;
+  }
+  .btn-gh:hover{border-color:rgba(255,255,255,.32)!important}
+  .btn-gh svg{width:16px;height:16px;fill:currentColor}
+
+  /* ---------- header ---------- */
+  .page-head{padding:72px 0 8px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--accent2);
+    border:1px solid rgba(86,216,201,.3);background:rgba(86,216,201,.08);
+    padding:5px 12px;border-radius:999px;margin-bottom:22px;
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2)}
+  h1{
+    font-size:clamp(32px,5vw,48px);line-height:1.1;letter-spacing:-.03em;
+    margin:0 0 16px;font-weight:800;
+  }
+  h1 .grad{
+    background:linear-gradient(92deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .page-head p.lede{font-size:17px;color:var(--muted);max-width:40rem;margin:0}
+  .lede b{color:var(--text);font-weight:650}
+  .lede code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.07);padding:1px 6px;border-radius:6px}
+
+  /* ---------- status ---------- */
+  .status{
+    margin-top:34px;border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);overflow:hidden;
+  }
+  .status-row{
+    display:flex;align-items:center;gap:14px;
+    padding:15px 20px;font-size:14.5px;
+  }
+  .status-row + .status-row{border-top:1px solid var(--border)}
+  .status-row code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.07);padding:1px 6px;border-radius:6px}
+  .badge{
+    flex:none;font-family:var(--mono);font-size:11px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;
+    padding:3px 10px;border-radius:999px;
+  }
+  .badge-done{color:#7ee0a3;background:rgba(126,224,163,.1);border:1px solid rgba(126,224,163,.28)}
+  .badge-todo{color:var(--warn);background:rgba(242,192,105,.09);border:1px solid rgba(242,192,105,.3)}
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0 8px}
+  .sec-head{margin-bottom:24px}
+  .sec-head h2{font-size:clamp(24px,3.2vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+  .sec-head p{color:var(--muted);margin:0;max-width:44rem}
+
+  /* ---------- tasks ---------- */
+  ol.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:t}
+  .task{
+    display:flex;gap:18px;
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);padding:22px 24px;
+  }
+  .task-num{
+    flex:none;width:34px;height:34px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:14px;font-weight:700;color:var(--accent2);
+    border:1px solid rgba(86,216,201,.3);background:rgba(86,216,201,.08);
+  }
+  .task-body{min-width:0;flex:1}
+  .task h3{margin:4px 0 6px;font-size:17px;letter-spacing:-.01em}
+  .task h3 .opt{
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.05em;
+    color:var(--faint);border:1px solid var(--border);border-radius:999px;
+    padding:2px 9px;margin-left:8px;vertical-align:2px;text-transform:uppercase;
+  }
+  .task p{margin:0 0 12px;color:var(--muted);font-size:14.5px}
+  .task p:last-child{margin-bottom:0}
+  .task a{color:var(--accent2);text-decoration:none}
+  .task a:hover{text-decoration:underline}
+  pre{
+    margin:0 0 12px;background:#070a10;border:1px solid var(--border);
+    border-radius:12px;padding:14px 18px;overflow-x:auto;
+    font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#c9d4ea;
+    white-space:pre;
+  }
+  pre .c{color:var(--faint)}
+  code.snippet{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.07);padding:1px 6px;border-radius:6px}
+  .kbd{
+    font-family:var(--mono);font-size:.82em;color:var(--text);
+    background:rgba(255,255,255,.08);border:1px solid var(--border-strong);
+    border-bottom-width:2px;border-radius:6px;padding:1px 7px;white-space:nowrap;
+  }
+
+  /* ---------- note / done ---------- */
+  .note{
+    border:1px solid rgba(242,192,105,.3);border-radius:var(--radius);
+    background:rgba(242,192,105,.06);padding:20px 24px;
+    display:flex;gap:14px;align-items:flex-start;font-size:14.5px;color:var(--muted);
+  }
+  .note .ico{flex:none;font-size:18px;line-height:1.4}
+  .note b{color:var(--text)}
+  .note code{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.07);padding:1px 6px;border-radius:6px}
+
+  .done{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);overflow:hidden;
+  }
+  .done details{padding:0}
+  .done summary{
+    cursor:pointer;list-style:none;padding:16px 20px;
+    font-size:14.5px;font-weight:600;color:var(--muted);
+    display:flex;align-items:center;gap:10px;transition:.15s;
+  }
+  .done summary::-webkit-details-marker{display:none}
+  .done summary::before{content:"▸";color:var(--faint);transition:.15s}
+  .done details[open] summary::before{transform:rotate(90deg)}
+  .done summary:hover{color:var(--text)}
+  .done ul{margin:0;padding:0 20px 18px 44px;color:var(--faint);font-size:13.5px}
+  .done li{margin:5px 0}
+  .done li::marker{color:var(--accent2)}
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:72px;border-top:1px solid var(--border);
+    padding:34px 0 44px;color:var(--faint);font-size:13.5px;
+  }
+  .foot-in{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .foot-in a{color:var(--muted);text-decoration:none}
+  .foot-in a:hover{color:var(--text)}
+  .foot-in .right{margin-left:auto}
+
+  @media (max-width:640px){
+    .page-head{padding-top:56px}
+    .task{gap:14px;padding:18px}
+    .task-num{width:30px;height:30px;font-size:13px}
+    .nav-links a:not(.btn-gh){display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <img class="nav-logo" src="assets/logo.png" alt="App Skills logo: a sleepy bun mascot in a dark hoodie holding a smartphone">
+    <a class="nav-name" href="index.html">app<span>-skills</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">카탈로그</a>
+      <a class="btn-gh" href="https://github.com/kimmandoo/app-skills" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="page-head">
+    <span class="pill"><span class="dot"></span><code class="snippet" style="background:transparent;padding:0">docs/WORK_CHECKPOINT.md</code>&nbsp;기준 · 2026-09-24</span>
+    <h1>지금 할 일</h1>
+    <p class="lede">
+      활성 작업은 <b>랜딩 페이지 로컬 실행 및 웹 게시</b>입니다.
+      파일 준비(<code>index.html</code> · <code>.nojekyll</code>)는 끝났고, 아래 실행·게시 단계만 남았습니다.
+    </p>
+  </div>
+
+  <div class="status" role="list">
+    <div class="status-row" role="listitem"><span class="badge badge-done">완료</span><span>랜딩 페이지 파일 작성 — 26개 스킬 카드 URL이 실제 <code>skills/**/SKILL.md</code> 경로와 일치함을 검증</span></div>
+    <div class="status-row" role="listitem"><span class="badge badge-todo">대기</span><span>로컬 확인 → 커밋 → 푸시 → GitHub Pages 활성화 (사용자 실행 필요)</span></div>
+  </div>
+
+  <!-- ===================== TODO ===================== -->
+  <section>
+    <div class="sec-head">
+      <h2>남은 작업 순서</h2>
+      <p>체크포인트에 기록된 다음 액션 그대로입니다. 위에서부터 순서대로 진행하면 됩니다.</p>
+    </div>
+
+    <ol class="tasks">
+      <li class="task">
+        <span class="task-num">1</span>
+        <div class="task-body">
+          <h3>로컬에서 랜딩 페이지 확인</h3>
+          <p>저장소 루트에서 정적 서버를 띄우고, 브라우저로 레이아웃·로고·스킬 카드 링크를 확인합니다.</p>
+          <pre><span class="c"># 저장소 루트에서</span>
+python3 -m http.server 8000
+<span class="c"># 브라우저에서 열기 →</span> http://localhost:8000/</pre>
+        </div>
+      </li>
+
+      <li class="task">
+        <span class="task-num">2</span>
+        <div class="task-body">
+          <h3>변경 사항 커밋</h3>
+          <p>저장소 규칙: 세션당 커밋, 메시지는 <code class="snippet">type(scope): subject</code> 형식.</p>
+          <pre>git add -A
+git commit -m "feat(site): add static landing page for skills catalog"</pre>
+          <p>이 페이지(<code class="snippet">tasks.html</code>)도 같은 세션 변경이므로 함께 커밋됩니다.</p>
+        </div>
+      </li>
+
+      <li class="task">
+        <span class="task-num">3</span>
+        <div class="task-body">
+          <h3><code class="snippet">main</code> 브랜치에 푸시</h3>
+          <pre>git push origin main</pre>
+        </div>
+      </li>
+
+      <li class="task">
+        <span class="task-num">4</span>
+        <div class="task-body">
+          <h3>GitHub Pages 활성화</h3>
+          <p>저장소 <b>Settings → Pages → Build and deployment</b>에서:</p>
+          <p>
+            Source: <span class="kbd">Deploy from a branch</span> →
+            Branch: <span class="kbd">main</span> / 폴더: <span class="kbd">/ (root)</span> →
+            <span class="kbd">Save</span>
+          </p>
+          <p>배포가 완료되면 사이트 주소는 <a href="https://kimmandoo.github.io/app-skills/" rel="noopener">https://kimmandoo.github.io/app-skills/</a> 입니다. (<code class="snippet">.nojekyll</code>이 이미 있어 Jekyll 빌드 없이 파일이 그대로 서빙됩니다.)</p>
+        </div>
+      </li>
+
+      <li class="task">
+        <span class="task-num">5</span>
+        <div class="task-body">
+          <h3>라이브 URL을 README에 추가 <span class="opt">선택</span></h3>
+          <p>사이트가 실제로 열리는 것을 확인한 뒤, <code class="snippet">README.md</code>에 라이브 주소를 적어두면 방문자가 바로 접근할 수 있습니다.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== NOTE ===================== -->
+  <section>
+    <div class="note">
+      <span class="ico" aria-hidden="true">⚠️</span>
+      <div>
+        <b>왜 직접 실행해야 하나요?</b><br>
+        에이전트 환경에는 명령 실행·git·배포 접근 권한이 없어서, 서버 실행부터 Pages 활성화까지는
+        사용자가 로컬/웹에서 직접 수행해야 합니다. 이 페이지도 <code>python3 -m http.server 8000</code>을
+        띄운 뒤 <code>http://localhost:8000/tasks.html</code>로 열거나, 파일을 브라우저에 직접 드래그해서 볼 수 있습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DONE ===================== -->
+  <section>
+    <div class="done">
+      <details>
+        <summary>이전 세션 작업 — 전부 완료됨 (10건)</summary>
+        <ul>
+          <li>랜딩 페이지 파일 작성 — <code>index.html</code> + <code>.nojekyll</code> (게시 단계만 대기 중)</li>
+          <li>로고 아바타가 들고 있는 물건을 스마트폰으로 교체</li>
+          <li>GitHub 아바타 기반 투명 배경 <code>assets/logo.png</code> 제작</li>
+          <li>README 로고 추가 (체크리스트 마크)</li>
+          <li>플랫폼 스킬 8개를 최상위 폴더로 이동하고 카탈로그·교차 링크 24곳 복구</li>
+          <li>universal/platform 라우팅 분리 + Compose recomposition·적응형 윈도우 스킬 추가</li>
+          <li>스킬 6개 카테고리 분류 + Google Play / App Store 제출 워크플로 추가</li>
+          <li>mobile-ux-improvement 스킬 도입 (MIT 라이선스 attribution 포함)</li>
+          <li>휴대용 스킬 7개 확장 + 카메라 동의 정책 정리</li>
+          <li>초기 스킬 마이그레이션 및 카메라 워크플로 추출</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© 2026 app-skills · plain-Markdown workflows, MIT-licensed where noted</span>
+    <span class="right">
+      <a href="index.html">카탈로그</a> ·
+      <a href="https://github.com/kimmandoo/app-skills" rel="noopener">GitHub</a> ·
+      <a href="https://github.com/kimmandoo/app-skills/blob/main/docs/WORK_CHECKPOINT.md" rel="noopener">체크포인트</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

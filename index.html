@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Skills — reusable mobile-development workflows for coding agents</title>
+<meta name="description" content="26 task-focused SKILL.md workflows for iOS, Android, Flutter, and Kotlin Multiplatform — builds, signing, store submission, camera, offline data, and UX. Drop-in skills for AI coding agents.">
+<meta property="og:title" content="App Skills — mobile-development workflows for coding agents">
+<meta property="og:description" content="26 reusable SKILL.md workflows covering iOS, Android, Flutter, and KMP: builds, releases, store submission, camera, offline data, and UX.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kimmandoo.github.io/app-skills/">
+<meta property="og:image" content="https://kimmandoo.github.io/app-skills/assets/logo.png">
+<meta name="theme-color" content="#0a0d14">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<style>
+  :root{
+    --bg:#0a0d14;
+    --bg-soft:#0e121c;
+    --card:rgba(255,255,255,.035);
+    --card-hover:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.09);
+    --border-strong:rgba(255,255,255,.16);
+    --text:#e9edf5;
+    --muted:#98a2b6;
+    --faint:#6b7488;
+    --accent:#7c8cff;
+    --accent2:#56d8c9;
+    --radius:16px;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(600px 420px at 12% -6%,rgba(124,140,255,.16),transparent 60%),
+      radial-gradient(560px 420px at 88% 4%,rgba(86,216,201,.10),transparent 60%),
+      radial-gradient(800px 600px at 50% 110%,rgba(124,140,255,.07),transparent 60%);
+    pointer-events:none;
+  }
+  ::selection{background:rgba(124,140,255,.35)}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:rgba(10,13,20,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-in{display:flex;align-items:center;gap:12px;height:64px}
+  .nav-logo{width:30px;height:30px;border-radius:8px;display:block}
+  .nav-name{font-weight:700;letter-spacing:-.01em}
+  .nav-name span{color:var(--muted);font-weight:500}
+  .nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;
+    padding:8px 12px;border-radius:9px;transition:.15s;
+  }
+  .nav-links a:hover{color:var(--text);background:var(--card-hover)}
+  .btn-gh{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--border-strong)!important;
+    color:var(--text)!important;
+  }
+  .btn-gh:hover{border-color:rgba(255,255,255,.32)!important}
+  .btn-gh svg{width:16px;height:16px;fill:currentColor}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:var(--accent2);
+    border:1px solid rgba(86,216,201,.3);background:rgba(86,216,201,.08);
+    padding:5px 12px;border-radius:999px;margin-bottom:22px;
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2)}
+  h1{
+    font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-.03em;
+    margin:0 0 20px;font-weight:800;
+  }
+  h1 .grad{
+    background:linear-gradient(92deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lede{font-size:18px;color:var(--muted);max-width:34rem;margin:0 0 32px}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-weight:600;font-size:15px;text-decoration:none;
+    padding:12px 22px;border-radius:12px;transition:.15s;
+  }
+  .btn-primary{background:linear-gradient(92deg,var(--accent),#5f74f2);color:#fff;box-shadow:0 6px 24px rgba(124,140,255,.32)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(124,140,255,.4)}
+  .btn-ghost{border:1px solid var(--border-strong);color:var(--text)}
+  .btn-ghost:hover{background:var(--card-hover)}
+  .hero-art{display:flex;justify-content:center}
+  .logo-card{
+    position:relative;width:min(320px,80%);aspect-ratio:1;
+    border-radius:28px;border:1px solid var(--border);
+    background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  .logo-card::after{
+    content:"";position:absolute;inset:-1px;border-radius:28px;z-index:-1;
+    background:linear-gradient(140deg,rgba(124,140,255,.4),transparent 40%,rgba(86,216,201,.35));
+    filter:blur(18px);opacity:.5;
+  }
+  .logo-card img{width:72%;height:72%;object-fit:contain;border-radius:20%}
+  .logo-card .fallback{font-size:96px}
+
+  /* ---------- stats ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--border);border:1px solid var(--border);
+    border-radius:var(--radius);overflow:hidden;margin:16px 0 0;
+  }
+  .stat{background:var(--bg-soft);padding:22px 24px}
+  .stat b{display:block;font-size:30px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .stat span{color:var(--muted);font-size:13.5px}
+
+  /* ---------- sections ---------- */
+  section{padding:72px 0 8px}
+  .sec-head{margin-bottom:34px}
+  .sec-head h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;margin:0 0 10px}
+  .sec-head p{color:var(--muted);margin:0;max-width:44rem}
+
+  /* ---------- steps ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card);padding:24px;
+  }
+  .step .num{
+    font-family:var(--mono);font-size:13px;color:var(--accent2);
+    border:1px solid rgba(86,216,201,.3);border-radius:8px;
+    display:inline-block;padding:2px 9px;margin-bottom:14px;
+  }
+  .step h3{margin:0 0 8px;font-size:17px}
+  .step p{margin:0;color:var(--muted);font-size:14.5px}
+  .step code,.snippet{font-family:var(--mono);font-size:.86em;background:rgba(255,255,255,.07);padding:1px 6px;border-radius:6px}
+
+  /* ---------- catalog ---------- */
+  .group{margin-bottom:40px}
+  .group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+  .group-head h3{margin:0;font-size:19px;letter-spacing:-.01em}
+  .count{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .tag{
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;
+    padding:3px 9px;border-radius:999px;text-transform:uppercase;
+  }
+  .tag-u{color:#9fb0ff;background:rgba(124,140,255,.12);border:1px solid rgba(124,140,255,.28)}
+  .tag-a{color:#7ee0a3;background:rgba(126,224,163,.1);border:1px solid rgba(126,224,163,.28)}
+  .tag-i{color:#a8c7ff;background:rgba(168,199,255,.1);border:1px solid rgba(168,199,255,.28)}
+  .tag-f{color:#6fd3ff;background:rgba(111,211,255,.1);border:1px solid rgba(111,211,255,.28)}
+  .tag-k{color:#d49fff;background:rgba(212,159,255,.1);border:1px solid rgba(212,159,255,.28)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .card{
+    display:block;text-decoration:none;
+    border:1px solid var(--border);border-radius:14px;
+    background:var(--card);padding:16px 18px;transition:.15s;
+  }
+  .card:hover{background:var(--card-hover);border-color:var(--border-strong);transform:translateY(-2px)}
+  .card code{
+    font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--accent2);
+    display:block;margin-bottom:6px;word-break:break-word;
+  }
+  .card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+
+  /* ---------- install ---------- */
+  .install{
+    border:1px solid var(--border);border-radius:var(--radius);
+    background:linear-gradient(160deg,rgba(124,140,255,.09),rgba(86,216,201,.05));
+    padding:34px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;
+  }
+  .install h2{margin:0 0 10px;font-size:26px;letter-spacing:-.02em}
+  .install p{color:var(--muted);margin:0}
+  pre{
+    margin:0;background:#070a10;border:1px solid var(--border);
+    border-radius:12px;padding:18px 20px;overflow-x:auto;
+    font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#c9d4ea;
+  }
+  pre .c{color:var(--faint)}
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:88px;border-top:1px solid var(--border);
+    padding:34px 0 44px;color:var(--faint);font-size:13.5px;
+  }
+  .foot-in{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .foot-in a{color:var(--muted);text-decoration:none}
+  .foot-in a:hover{color:var(--text)}
+  .foot-in .right{margin-left:auto}
+
+  @media (max-width:880px){
+    .hero{grid-template-columns:1fr;padding-top:64px;gap:40px}
+    .hero-art{order:-1}
+    .logo-card{width:min(240px,70%)}
+    .steps,.grid{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .install{grid-template-columns:1fr}
+    .nav-links a:not(.btn-gh){display:none}
+  }
+  @media (max-width:560px){
+    .steps,.grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <img class="nav-logo" src="assets/logo.png" alt="App Skills logo: a sleepy bun mascot in a dark hoodie holding a smartphone">
+    <span class="nav-name">app<span>-skills</span></span>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#skills">Skills</a>
+      <a href="#install">Install</a>
+      <a class="btn-gh" href="https://github.com/kimmandoo/app-skills" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <div class="hero">
+    <div>
+      <span class="pill"><span class="dot"></span>26 reusable workflows · plain Markdown</span>
+      <h1>Mobile-dev skills your coding agent can <span class="grad">actually&nbsp;use.</span></h1>
+      <p class="lede">
+        A catalog of task-focused <code class="snippet">SKILL.md</code> workflows for iOS, Android,
+        Flutter, and Kotlin Multiplatform — from Gradle signing and release preflight to camera
+        sessions and offline-first data. Discoverable by any agent that can read
+        <code class="snippet">skills/**/SKILL.md</code>.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#skills">Browse the skills ↓</a>
+        <a class="btn btn-ghost" href="https://github.com/kimmandoo/app-skills" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="logo-card">
+        <img src="assets/logo.png" alt=""
+             onerror="this.outerHTML='<span class=&quot;fallback&quot;>🐰</span>'">
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" role="list">
+    <div class="stat" role="listitem"><b>26</b><span>task-focused skills</span></div>
+    <div class="stat" role="listitem"><b>18</b><span>stack-neutral universal workflows</span></div>
+    <div class="stat" role="listitem"><b>4</b><span>platforms: Android · iOS · Flutter · KMP</span></div>
+    <div class="stat" role="listitem"><b>0</b><span>runtime dependencies — just Markdown</span></div>
+  </div>
+
+  <!-- ===================== HOW ===================== -->
+  <section id="how">
+    <div class="sec-head">
+      <h2>How it works</h2>
+      <p>No plugin system, no lock-in. Each skill is a plain Markdown contract your agent loads on demand.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Drop it in</h3>
+        <p>Copy or submodule the <code>skills/</code> folder into your agent's environment. Every leaf has stable frontmatter and a <code>SKILL.md</code>.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Route by task</h3>
+        <p>The agent discovers <code>skills/**/SKILL.md</code>, picks the platform skill when the problem is toolchain-bound, otherwise the matching universal workflow.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Follow the chain</h3>
+        <p>Skills link to each other: version → preflight → artifacts → store submission. Compilation, review, and publication stay distinct, verifiable outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills">
+    <div class="sec-head">
+      <h2>The catalog</h2>
+      <p>Every card links straight to the workflow contract on GitHub.</p>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-u">Universal</span><h3>Release &amp; stores</h3><span class="count">4</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/release/version-release/SKILL.md"><code>version-release</code><p>User-facing versions and upload build numbers, done consistently.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/release/release-preflight/SKILL.md"><code>release-preflight</code><p>Surface blockers before producing a release.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/release/release-artifacts/SKILL.md"><code>release-artifacts</code><p>Signed mobile artifacts and metadata checks.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/release/store-submission-content/SKILL.md"><code>store-submission-content</code><p>Localized store claims and submission history.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-u">Universal</span><h3>Local data &amp; collaboration</h3><span class="count">3</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/data/offline-data-integrity/SKILL.md"><code>offline-data-integrity</code><p>Offline document import, sharing, storage, restoration.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/data/local-first-event-sync/SKILL.md"><code>local-first-event-sync</code><p>Event replay, retries, and conflicting offline edits.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/data/shared-cloud-access/SKILL.md"><code>shared-cloud-access</code><p>Shared-resource authorization, invitations, cloud cutover.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-u">Universal</span><h3>Camera &amp; vision</h3><span class="count">5</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/camera/camera-gesture-session/SKILL.md"><code>camera-gesture-session</code><p>Camera gestures and asynchronous capture-session state.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/camera/camera-focus-orientation/SKILL.md"><code>camera-focus-orientation</code><p>Tap-to-focus, metering, saved orientation, mirroring.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/camera/camera-media-output/SKILL.md"><code>camera-media-output</code><p>Photo/video finalization and destination saving.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/camera/face-detector-selection/SKILL.md"><code>face-detector-selection</code><p>Choose an on-device face detector by measured quality.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/camera/tiled-face-detection/SKILL.md"><code>tiled-face-detection</code><p>Detect small faces in large images with crops.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-u">Universal</span><h3>Product experience</h3><span class="count">5</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/experience/mobile-ux-improvement/SKILL.md"><code>mobile-ux-improvement</code><p>Diagnose and reduce friction in an existing user task.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/experience/mobile-ui-ux-verification/SKILL.md"><code>mobile-ui-ux-verification</code><p>Audit screen states, accessibility, adaptive layouts.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/experience/adaptive-window-posture/SKILL.md"><code>adaptive-window-posture</code><p>Fold/flip posture, split-screen, iPad multiwindow.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/experience/mobile-gesture-interactions/SKILL.md"><code>mobile-gesture-interactions</code><p>Resolve tap/drag/scroll/pinch collisions.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/experience/mobile-localization/SKILL.md"><code>mobile-localization</code><p>Translate app UI and change language preferences.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-u">Universal</span><h3>Device evidence</h3><span class="count">1</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/universal/build/device-verification/SKILL.md"><code>device-verification</code><p>Prove changed behavior on a real installed app — not just a green build.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-a">Android</span><h3>Android &amp; Google Play</h3><span class="count">3</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/android/android-build/SKILL.md"><code>android-build</code><p>Gradle, SDK, builds, and signing.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/android/compose-recomposition/SKILL.md"><code>compose-recomposition</code><p>Measure and cut expensive Compose recomposition.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/android/google-play-submission/SKILL.md"><code>google-play-submission</code><p>Play Console upload, review, rejection, publication.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-i">iOS</span><h3>iOS &amp; App Store</h3><span class="count">3</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/ios/ios-build/SKILL.md"><code>ios-build</code><p>Xcode, simulator/device builds, provisioning.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/ios/app-store-submission/SKILL.md"><code>app-store-submission</code><p>App Store Connect submission, App Review, release.</p></a>
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/ios/att-review/SKILL.md"><code>att-review</code><p>Handle tracking-consent (ATT) review findings.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-f">Flutter</span><h3>Flutter</h3><span class="count">1</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/flutter/flutter-mobile-build/SKILL.md"><code>flutter-mobile-build</code><p>Flutter Android/iOS builds and signing.</p></a>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-head"><span class="tag tag-k">KMP</span><h3>Kotlin Multiplatform</h3><span class="count">1</span></div>
+      <div class="grid">
+        <a class="card" href="https://github.com/kimmandoo/app-skills/blob/main/skills/kmp/kmp-platform-boundaries/SKILL.md"><code>kmp-platform-boundaries</code><p>Shared Kotlin domain vs. native Android/iOS boundaries.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INSTALL ===================== -->
+  <section id="install">
+    <div class="install">
+      <div>
+        <h2>Get started</h2>
+        <p>Clone it, or vendor <code class="snippet">skills/</code> into the project where your agent works. There is nothing to build — the catalog is the product.</p>
+      </div>
+      <pre><span class="c"># clone the catalog</span>
+git clone https://github.com/kimmandoo/app-skills.git
+
+<span class="c"># or vendor the skills into your project</span>
+cp -R app-skills/skills /path/to/your/project/</pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© 2026 app-skills · plain-Markdown workflows, MIT-licensed where noted</span>
+    <span class="right">
+      <a href="tasks.html">Tasks</a> ·
+      <a href="https://github.com/kimmandoo/app-skills" rel="noopener">GitHub</a> ·
+      <a href="https://github.com/kimmandoo/app-skills/blob/main/README.md" rel="noopener">README</a> ·
+      <a href="https://github.com/kimmandoo/app-skills/blob/main/CHANGELOG.md" rel="noopener">Changelog</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -24,13 +24,13 @@ For targets with App Groups or share extensions, preserve the signing/entitlemen
 ## Device
 
 1. Check `xcrun devicectl list devices` and `security find-identity -v -p codesigning`. Confirm the selected device, configured Team, and the app/extension App IDs.
-2. If an App Group is used, register it with the developer account, attach it to **both** app and extension IDs, and ensure **both** profiles include the entitlement. `-allowProvisioningUpdates` does not register a missing group by itself.
+2. If an App Group is used, confirm it is registered with the developer account, attached to **both** app and extension IDs, and included in **both** profiles. Registration or changing account capabilities is an external account mutation: obtain authorization before doing it. `-allowProvisioningUpdates` can modify signing resources when authorized; use it only with explicit permission and do not assume it registers a missing group.
 3. Use the repository's signed device build script if available, or adapt:
 
 ```sh
 xcodebuild -project '<PROJECT.xcodeproj>' -scheme '<SCHEME>' \
   -configuration Debug -destination 'id=<DEVICE_UDID>' \
-  -derivedDataPath '<DERIVED_DATA>' -allowProvisioningUpdates build
+  -derivedDataPath '<DERIVED_DATA>' build
 ```
 
 4. Verify signing of the app and embedded extensions and check the device `.app` output under `Build/Products/Debug-iphoneos/`. Install, launch, and exercise the changed behavior with [device-verification](../../universal/build/device-verification/SKILL.md). A simulator build, unsigned device build, or compile-only result is not a signed device build.

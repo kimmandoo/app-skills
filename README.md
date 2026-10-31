@@ -8,6 +8,8 @@ Reusable English-language mobile workflows. `skills/universal/` holds stack-neut
 
 Use a **platform** skill when the problem depends on its compiler, UI toolkit, build tool, or store console. Otherwise start with the applicable **universal** skill. For a store launch: version → preflight → artifacts → the target store's submission workflow; store copy is separate. Compilation, submission, review approval, and public availability are distinct outcomes.
 
+When changing routing or skill descriptions, use the [skill routing evaluation](docs/SKILL_ROUTING_EVALUATION.md) to compare expected and actual starting skills; its fixtures are not evidence of a passing run. For selected safety-critical behaviors, use the separate [behavioral evaluation](docs/SKILL_BEHAVIOR_EVALUATION.md); correct routing does not establish correct execution.
+
 ## Universal workflows
 
 ### Device evidence

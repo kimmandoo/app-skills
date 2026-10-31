@@ -1,5 +1,26 @@
 # Work checkpoint
 
+## Skill-wide upgrade — in progress
+
+- Status: partial. Requested reads of the 26 skill files; several results were preview-only and still need full review. Hardened Android build and Play submission, iOS build and App Store submission, release artifacts, and local-first event sync. Added five behavioral fixtures and linked them from README. Other skills still require complete detailed review and task-specific improvements; this is not a completed skill-wide upgrade.
+- Changed files: the six skills above, `docs/SKILL_BEHAVIOR_EVALUATION.md`, `README.md`, `CHANGELOG.md`, and this checkpoint. Existing pending site-publishing work below remains separate.
+- Verification: `git diff --check` exited 0 before this checkpoint update; it does not inspect untracked files. No behavioral runs, routing evaluation, or device/store tests have been performed. Review the working diff and run appropriate checks before marking complete.
+- Next action: read full remaining skill contents, identify and fix concrete domain-specific gaps, extend behavioral fixtures, then run structural/link checks and selected real behavioral evaluations with recorded results. Preserve unrelated working changes.
+
+## 2026-09-24 — pending-tasks web page
+
+- Status: files complete; same publishing blocker as the active task below. Added `tasks.html`, a self-contained Korean page in the landing-page style that renders the active checkpoint's remaining work as a five-step checklist (local `python3 -m http.server 8000` preview → commit `feat(site): add static landing page for skills catalog` → push `main` → enable GitHub Pages `main`/`root` → optionally add the live URL to `README.md`), a done/pending status strip, a user-action notice (agent has no shell/git access), and a collapsible ten-item completed-session list. Added a "Tasks" link to the `index.html` footer.
+- Verification: markup mirrors the existing `index.html` structure and CSS conventions; every referenced path (`assets/logo.png`, `index.html`, `docs/WORK_CHECKPOINT.md`) exists; task content was transcribed from the active checkpoint entry, not invented. No HTML renderer, server, or git commands are available in this environment, so the page was not rendered or served.
+- Changed files: `tasks.html` (new), `index.html` (footer link), `CHANGELOG.md`, and this checkpoint.
+- Next action for user/session: open `tasks.html` (via `python3 -m http.server 8000` → `http://localhost:8000/tasks.html`, or drag the file into a browser), then perform the checklist's publish steps. Commit this session's changes as `feat(site): add pending-tasks page`. Blockers: command execution and git/deployment access are not available to the agent.
+
+## 2026-09-24 — landing page for localhost and web publish
+
+- Status: files complete; localhost run and publish pending user action. Added a self-contained `index.html` at repo root advertising the catalog (hero, stats, how-it-works, all 26 skills in 9 groups with GitHub blob links, install snippet) plus an empty `.nojekyll` so GitHub Pages serves the files without a Jekyll build. The page references `assets/logo.png` by relative path and targets `https://kimmandoo.github.io/app-skills/` for og:url/og:image; `docs/DESIGN_RULES.md` and `docs/TROUBLESHOOTING.md` do not exist in this repo.
+- Verification: all 26 card URLs map to existing `skills/**/SKILL.md` paths (including `skills/universal/build/device-verification/`, which file-listing tools hide because the directory is named `build` but is readable and cataloged). No HTML renderer, server, or git commands are available in this environment, so layout, localhost serving, and publishing were not executed.
+- Changed files: `index.html`, `.nojekyll`, `CHANGELOG.md`, and this checkpoint. Skill files and `README.md` were not modified.
+- Next action for user/session: run `python3 -m http.server 8000` at repo root and open `http://localhost:8000/`; commit with `feat(site): add static landing page for skills catalog`; push to `main`, then enable GitHub Pages (Settings → Pages → Deploy from a branch → `main` / root). Site goes live at `https://kimmandoo.github.io/app-skills/`. Optionally add the live URL to `README.md` once confirmed. Blockers: command execution and git/deployment access are not available to the agent.
+
 ## 2026-09-24 — smartphone in avatar hand
 
 - Status: complete. Replaced the green mug in `assets/logo.png` with a smartphone, retained the avatar's face, hoodie, and original hand over the phone edge, and removed leftover mug/steam pixels. Updated the README alt text to describe the phone; its local image path and display size are unchanged.

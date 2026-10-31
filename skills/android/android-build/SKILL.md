@@ -14,7 +14,7 @@ description: Build and verify an Android debug APK or a signed release APK/AAB; 
 ## Debug
 
 1. Prefer the repository's supported build script. Otherwise identify the app module and run `./gradlew :<APP_MODULE>:assembleDebug :<APP_MODULE>:assembleDebugAndroidTest :<APP_MODULE>:lintDebug --console=plain` when those tasks exist.
-2. Check exit status and the actual output paths under the module's `build/outputs/`. Inspect the lint report and run the built instrumentation APK on a device when applicable; a successful build is not a successful behavioral test.
+2. Check exit status and the actual output paths under the module's `build/outputs/`; tie the artifact to this invocation and variant rather than assuming an existing file was just produced. Inspect the lint report and run the built instrumentation APK on a device when applicable; a successful build is not a successful behavioral test.
 3. Use [device-verification](../../universal/build/device-verification/SKILL.md) to exercise the changed flow, including permission, file-import, and rotation paths where relevant.
 
 ## Release

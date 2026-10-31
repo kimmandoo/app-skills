@@ -1,7 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- fix(skills): hardened final release-artifact verification, signing authorization, reviewer access, stale-build reporting, and event cursor recovery.
+- test(skills): added behavioral evaluation fixtures for selected build, release, access, and synchronization risks.
+
 ## 2026-09-24
 
+- feat(site): added `tasks.html`, a Korean-language pending-work page rendering the active checkpoint checklist and completed-session history in the landing-page style.
+- feat(site): added a self-contained `index.html` landing page advertising the skills catalog, ready for localhost preview and GitHub Pages publishing.
 - feat(readme): replaced the avatar's green mug with a smartphone held in the original hand.
 - feat(readme): replaced the checklist illustration with a transparent cutout of the maintainer's GitHub avatar.
 - feat(readme): added an accessible SVG mobile-checklist logo to the repository landing page.
