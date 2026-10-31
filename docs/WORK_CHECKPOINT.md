@@ -2,10 +2,10 @@
 
 ## Skill-wide upgrade — in progress
 
-- Status: partial. Requested reads of the 26 skill files; several results were preview-only and still need full review. Hardened Android build and Play submission, iOS build and App Store submission, release artifacts, and local-first event sync. Added five behavioral fixtures and linked them from README. Other skills still require complete detailed review and task-specific improvements; this is not a completed skill-wide upgrade.
-- Changed files: the six skills above, `docs/SKILL_BEHAVIOR_EVALUATION.md`, `README.md`, `CHANGELOG.md`, and this checkpoint. Existing pending site-publishing work below remains separate.
-- Verification: `git diff --check` exited 0 before this checkpoint update; it does not inspect untracked files. No behavioral runs, routing evaluation, or device/store tests have been performed. Review the working diff and run appropriate checks before marking complete.
-- Next action: read full remaining skill contents, identify and fix concrete domain-specific gaps, extend behavioral fixtures, then run structural/link checks and selected real behavioral evaluations with recorded results. Preserve unrelated working changes.
+- Status: partial, not complete. This session requested all 26 skills and inspected the available portions; several long read responses were preview-only, so complete detailed review remains. Hardened ATT authorization, Flutter release artifact freshness, and the camera recording start/stop race. Added behavioral fixtures B06–B07.
+- Current session changes: `skills/ios/att-review/SKILL.md`, `skills/flutter/flutter-mobile-build/SKILL.md`, `skills/universal/camera/camera-gesture-session/SKILL.md`, `docs/SKILL_BEHAVIOR_EVALUATION.md`, `CHANGELOG.md`, and this checkpoint. Preserve unrelated untracked `.DS_Store` files.
+- Verification: `git diff --check` exited 0 before the latest checkpoint update; it does not check untracked files or behavioral correctness. No behavior or routing evaluation or device/store test has been run this session. Fixtures are scenarios, not results. Review the working diff and record any subsequent checks before marking complete.
+- Next action: read complete contents of all 26 skills including portions omitted from previews, identify remaining concrete domain-specific gaps, improve and evaluate them, then run structural/link checks and selected actual behavioral evaluations with recorded results. Do not mark the task complete without those checks. Previous work hardened six release/data skills and added five behavioral fixtures.
 
 ## 2026-09-24 — pending-tasks web page
 

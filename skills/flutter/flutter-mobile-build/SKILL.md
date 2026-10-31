@@ -18,7 +18,7 @@ From the consumer repository root, read `pubspec.yaml`, the Flutter/Dart SDK con
 ## Signed release
 
 1. Pass [release-preflight](../../universal/release/release-preflight/SKILL.md); check the configured Android upload key, iOS distribution certificates/profiles and capabilities, and any required production configuration. Pass build-time values through the project's documented ignored or CI-backed config without echoing secrets or committing them.
-2. Build the intended Android deliverable using `flutter build appbundle --release` (and `flutter build apk --release` only if an APK is required). Build the iOS archive/IPA with `flutter build ipa --release` using the actual export/signing configuration. Do not treat an archive generated before a failed IPA export as a completed IPA.
+2. Build the intended Android deliverable using `flutter build appbundle --release` (and `flutter build apk --release` only if an APK is required). Build the iOS archive/IPA with `flutter build ipa --release` using the actual export/signing configuration. Record the invocation, exit status and output path; verify the inspected file was produced by this successful invocation for the intended flavor and entrypoint, rather than a stale output from an earlier build. Do not delete existing artifacts merely to establish freshness without authorization. Do not treat an archive generated before a failed IPA export as a completed IPA.
 3. Inspect actual output files, platform package/bundle IDs, version/build metadata, signing identities, and relevant entitlements. Independently verify package signatures and final checksums via [release-artifacts](../../universal/release/release-artifacts/SKILL.md). Only store-console processing confirms upload acceptance.
 
 ## Stop conditions

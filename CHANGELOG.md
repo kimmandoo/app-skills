@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- fix(skills): clarified ATT authorization gating, Flutter artifact freshness, and camera recording stop during asynchronous start.
+- test(skills): added ATT denial and stale Flutter output behavior fixtures.
+
 - fix(skills): hardened final release-artifact verification, signing authorization, reviewer access, stale-build reporting, and event cursor recovery.
 - test(skills): added behavioral evaluation fixtures for selected build, release, access, and synchronization risks.
 

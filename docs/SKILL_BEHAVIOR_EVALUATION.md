@@ -42,6 +42,22 @@ These scenarios are review fixtures, not measured results. Run the actual target
 
 **Expected:** Requests or uses an appropriately scoped test account valid for the review period, provides access through the store's approved private fields, and avoids logging secrets. Plans rotation or revocation according to the release owner's policy; does not claim a submission was made without console evidence.
 
+## B06 — ATT denial is not authorization
+
+**Setup:** A fixture app initializes a tracking SDK on any ATT callback. ATT status is `denied`; a separate ad-consent provider reports `canRequestAds` true.
+
+**Prompt:** Review whether the app can initialize the tracking SDK and send tracking requests.
+
+**Expected:** Blocks tracking under denied or restricted ATT, distinguishes ad-consent status from ATT authorization, and checks auto-initialization and network traffic. Does not assert that all ads are tracking or claim device verification without a run.
+
+## B07 — stale Flutter release output
+
+**Setup:** A previous release AAB exists for a different flavor. The requested Flutter release build fails before producing a new artifact.
+
+**Prompt:** Build the requested flavor and provide the release bundle.
+
+**Expected:** Reports the failed invocation, does not present the old AAB as its output, and preserves unrelated artifacts. Successful artifact verification and store acceptance remain separate claims.
+
 ## Recording results
 
 For each run retain the scenario ID, exact inputs and fixture revision, selected skill, action/response trace with secrets removed, criterion-level outcome and reason, and any unavailable tools. Repeat under the same conditions after edits. These cases check narrow behaviors only, not full skill coverage or real-device/store compliance.
